@@ -5,7 +5,7 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ReplayingDecoder;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
@@ -14,9 +14,8 @@ import java.util.List;
  * @email wangzhanwei@lumlord.com
  * @date 2020/3/24  19:27
  */
+@Slf4j
 public class MessageToPoDecoder extends ReplayingDecoder<Void> {
-
-    private final Logger log = Logger.getLogger(MessageToPoDecoder.class);
 
     private final byte BODY_HEAD=(byte) 0xA8;
 
@@ -38,7 +37,7 @@ public class MessageToPoDecoder extends ReplayingDecoder<Void> {
         // 读取固定头部信息
         byte b = byteBuf.readByte();
         if (!verifyHead(b)){
-            log.error("服务器头部:"+b);
+            log.error("服务器头部:{}",b);
             ctx.channel().close();
             throw new DataHeaderException(b);
         }

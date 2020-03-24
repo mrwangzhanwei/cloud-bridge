@@ -7,7 +7,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
  * @email wangzhanwei@lumlord.com
  * @date 2020/3/24  19:16
  */
+@Slf4j
 public class TCPServer implements Server{
     EventLoopGroup bossGroup = new NioEventLoopGroup();
     EventLoopGroup workerGroup = new NioEventLoopGroup();
@@ -22,9 +23,10 @@ public class TCPServer implements Server{
     public  final static TCPServer INSTANCE=new TCPServer();
 
 
-    private final Logger log= Logger.getLogger(TCPServer.class);
+//    private final Logger log= Logger.getLogger(TCPServer.class);
 
     public void start() {
+        log.info("");
         ServerBootstrap bootstrap = new ServerBootstrap();
         bootstrap.group(workerGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
