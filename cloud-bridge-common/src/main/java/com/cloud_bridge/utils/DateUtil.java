@@ -1,4 +1,4 @@
-package utils;
+package com.cloud_bridge.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
