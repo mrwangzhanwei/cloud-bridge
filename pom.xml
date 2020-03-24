@@ -10,6 +10,7 @@
 	<modules>
 		<module>cloud-bridge-server</module>
 		<module>cloud-bridge-common</module>
+		<module>cloud-bridge-client</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
