@@ -1,6 +1,7 @@
 package com.cloud_bridge;
 
 import com.cloud_bridge.handler.BusinessHandler;
+import com.cloud_bridge.server.impl.TCPServer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -26,12 +27,24 @@ import java.util.concurrent.TimeUnit;
  */
 public class Main {
     public static void main(String[] args) {
+        TCPServer.INSTANCE.start();
+    }
+
+    /**
+     * 启动
+     */
+    public static void start(){
         Main main = new Main();
         int prot = 5656;
-        if (args.length>0 && args[0].matches("\\d{4}"))
-            prot = Integer.parseInt(args[0]);
+//        if (args.length>0 && args[0].matches("\\d{4}"))
+//            prot = Integer.parseInt(args[0]);
         main.run(prot);
     }
+
+    /**
+     * 初始启动方法
+     * @param prot
+     */
     public void run(int prot){
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();

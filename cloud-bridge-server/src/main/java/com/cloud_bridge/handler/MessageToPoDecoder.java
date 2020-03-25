@@ -1,6 +1,8 @@
 package com.cloud_bridge.handler;
 
 import com.cloud_bridge.exception.DataHeaderException;
+import com.cloud_bridge.model.FuncodeEnum;
+import com.cloud_bridge.model.Message;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -46,7 +48,14 @@ public class MessageToPoDecoder extends ReplayingDecoder<Void> {
         int bodyLength=byteBuf.readInt(); //读取固定数据长度字段
         byte[] topic=null;
         byte[] body=null;
-
+        if(ishaveTopic==1){
+            topic=new byte[12];
+            byteBuf.readBytes(topic);
+            bodyLength=bodyLength-12; //若有topic主题字段 则读取body体字段长度-12
+        }
+        body=new byte[bodyLength];
+        byteBuf.readBytes(body);
+        list.add(new Message(FuncodeEnum.getEumInstanceByType(funCode), ishaveTopic, topic,bodyLength, body));
     }
 
     /**

@@ -13,4 +13,11 @@
     <artifactId>cloud-bridge-common</artifactId>
     <description>公共工程</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd-all</artifactId>
+            <version>5.0.6</version>
+        </dependency>
+    </dependencies>
 </project>
