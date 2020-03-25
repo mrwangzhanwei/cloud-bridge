@@ -13,4 +13,11 @@
     <artifactId>cloud-bridge-client</artifactId>
     <description>客户端工程</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.cloud_bridge</groupId>
+            <artifactId>cloud-bridge-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 </project>

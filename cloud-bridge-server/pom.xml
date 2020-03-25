@@ -14,23 +14,11 @@
     <description>服务端工程</description>
 
     <dependencies>
-
         <dependency>
             <groupId>com.cloud_bridge</groupId>
             <artifactId>cloud-bridge-common</artifactId>
             <version>1.0.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>1.1.10</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.58</version>
-        </dependency>
-
     </dependencies>
 
 </project>
