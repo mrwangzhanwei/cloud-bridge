@@ -20,7 +20,6 @@ public class PropertyConfigFactory implements ConfigFactory{
         try {
             config = PropertyUtil.load();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -33,12 +32,6 @@ public class PropertyConfigFactory implements ConfigFactory{
             serverConfig.setHost(config.get("server.host"));
             serverConfig.setPort(config.get("server.port"));
             serverConfig.setRetryCount(Integer.parseInt(config.get("server.retryCount")));
-            serverConfig.setEnableCluster(Boolean.parseBoolean(config.get("server.enableCluster")));
-
-            //设置zk配置
-            serverConfig.setZkServers(config.get("zkServer.servers"));
-            serverConfig.setZkSessionTimeout(Integer.parseInt(config.get("zkServer.sessionTimeout")));
-            serverConfig.setZkRootPath(config.get("zkServer.rootPath"));
             // 设置连接密码
             HashMap<String, String> hashMap = new HashMap<>();
             hashMap.put("wzw", "666");
