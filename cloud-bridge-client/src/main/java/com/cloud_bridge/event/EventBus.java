@@ -3,6 +3,7 @@ package com.cloud_bridge.event;
 import com.cloud_bridge.api.PubAndSubClient.SubscribListener;
 import com.cloud_bridge.halder.Handler;
 import com.cloud_bridge.model.FuncodeEnum;
+import com.cloud_bridge.model.LastLoginRecord;
 import com.cloud_bridge.model.Message;
 import com.cloud_bridge.utils.MD5Util;
 import jodd.util.StringUtil;
@@ -30,7 +31,7 @@ public class EventBus {
             switch (funcodeEnum) {
                 case NOTICE_AUTH_OK:
                     //认证成功保存登陆凭证
-                    //LastLoginRecord.INSTANCE().setToken(obj);
+                    LastLoginRecord.INSTANCE().setToken(obj);
                     if(autuListener!=null)
                         autuListener.authOk(obj);
                     break;

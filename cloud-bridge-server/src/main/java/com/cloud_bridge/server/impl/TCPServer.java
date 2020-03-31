@@ -31,9 +31,6 @@ public class TCPServer implements Server{
 
     public  final static TCPServer INSTANCE=new TCPServer();
 
-
-//    private final Logger log= Logger.getLogger(TCPServer.class);
-
     public void start() {
         log.info("服务端启动");
         ServerBootstrap bootstrap = new ServerBootstrap();

@@ -17,6 +17,8 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -26,8 +28,24 @@ import java.util.concurrent.TimeUnit;
  * @date 2020/3/24  14:40
  */
 public class Main {
+
+
     public static void main(String[] args) {
-        TCPServer.INSTANCE.start();
+            run();
+    }
+
+    /**
+     * 创建线程池
+     */
+    private final ExecutorService executorService= Executors.newFixedThreadPool(1);
+    /**
+     * 使用线程池启动
+     */
+    private static void run(){
+        Main main = new Main();
+        main.executorService.submit(()->{
+            TCPServer.INSTANCE.start();
+        });
     }
 
     /**

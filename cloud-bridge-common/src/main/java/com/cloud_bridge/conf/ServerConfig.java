@@ -21,18 +21,6 @@ public class ServerConfig {
 
     private Integer pingTimeout;
 
-    //是否开启集群模式
-    private Boolean enableCluster;
-
-    private String zkServers;
-
-    private Integer zkSessionTimeout;
-
-    private String zkRootPath;
-
-
-
-
     private Map<String,String> verifiedAccount;
 
 
@@ -101,39 +89,5 @@ public class ServerConfig {
     public void setPingTimeout(Integer pingTimeout) {
         this.pingTimeout = pingTimeout;
     }
-
-    public String getZkServers() {
-        return zkServers;
-    }
-
-    public void setZkServers(String zkServers) {
-        this.zkServers = zkServers;
-    }
-
-    public Integer getZkSessionTimeout() {
-        return zkSessionTimeout;
-    }
-
-    public void setZkSessionTimeout(Integer zkSessionTimeout) {
-        this.zkSessionTimeout = zkSessionTimeout;
-    }
-
-    public String getZkRootPath() {
-        return zkRootPath;
-    }
-
-    public void setZkRootPath(String zkRootPath) {
-        this.zkRootPath = zkRootPath;
-    }
-
-    public Boolean getEnableCluster() {
-        return enableCluster;
-    }
-
-    public void setEnableCluster(Boolean enableCluster) {
-        this.enableCluster = enableCluster;
-    }
-
-
 
 }

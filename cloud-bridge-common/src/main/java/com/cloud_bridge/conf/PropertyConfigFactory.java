@@ -39,12 +39,9 @@ public class PropertyConfigFactory implements ConfigFactory{
             serverConfig.setZkServers(config.get("zkServer.servers"));
             serverConfig.setZkSessionTimeout(Integer.parseInt(config.get("zkServer.sessionTimeout")));
             serverConfig.setZkRootPath(config.get("zkServer.rootPath"));
-
-
-
-
+            // 设置连接密码
             HashMap<String, String> hashMap = new HashMap<>();
-            hashMap.put("dbw", "123");
+            hashMap.put("wzw", "666");
             serverConfig.setVerifiedAccount(hashMap);
         }
         return serverConfig;

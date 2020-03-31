@@ -3,10 +3,15 @@ package com.cloud_bridge.listener;
 import com.cloud_bridge.client.SubRecorder;
 import com.cloud_bridge.client.TCPClient;
 import com.cloud_bridge.halder.ChannelHolder;
+import com.cloud_bridge.model.FuncodeEnum;
+import com.cloud_bridge.model.LastLoginRecord;
+import com.cloud_bridge.model.Message;
 import com.cloud_bridge.utils.DateUtil;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.EventLoop;
+import jodd.util.StringUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Logger;
 
 import java.util.concurrent.TimeUnit;
@@ -17,11 +22,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @email wangzhanwei@lumlord.com
  * @date 2020/3/31  9:51
  */
+@Slf4j
 public class ConnectionListener implements ChannelFutureListener {
 
     private final TCPClient CLIENT=TCPClient.INSTANCE;
-
-    private final Logger LOGGER=Logger.getLogger(ChannelFutureListener.class);
 
     private  static AtomicInteger retryCount=new AtomicInteger(0);
 
@@ -37,24 +41,24 @@ public class ConnectionListener implements ChannelFutureListener {
             if(!eventExecutors.isShuttingDown()){
                 eventExecutors.schedule(()->{
                     if(retryCount.get()<=TRY_LIMITE) {
-                        LOGGER.error("【客户端状态】STATUS=failed,TIME="+ DateUtil.getCurrentDateTime()+",msg=正在尝试重连,retrys="+retryCount.getAndIncrement());
+                        log.error("【客户端状态】STATUS=failed,TIME="+ DateUtil.getCurrentDateTime()+",msg=正在尝试重连,retrys="+retryCount.getAndIncrement());
                         TCPClient.INSTANCE.start();
                     }else{
                         TCPClient.INSTANCE.stop();
-                        LOGGER.error("【重连警告】已超过最大重连次数，程序关闭");
+                        log.error("【重连警告】已超过最大重连次数，程序关闭");
                     }
                 },dalayTime, TimeUnit.SECONDS);
                 dalayTime=dalayTime<<1;//重连次数越多，延迟时间越长
             }
         }else{
-            LOGGER.info("【客户端状态】STATUS=ACTIVE,TIME="+ DateUtil.getCurrentDateTime());
+            log.info("【客户端状态】STATUS=ACTIVE,TIME="+ DateUtil.getCurrentDateTime());
             ChannelHolder.setChannel(future.channel());
-//	        	   //判断上次是否登陆
-//	        	   if(!StringUtil.isEmpty(LastLoginRecord.INSTANCE().getLastToken())){
-//	        		   //向broker发送认证凭证
-//	        		   System.out.println("发送登陆凭证");
-//	        		   future.channel().writeAndFlush(new Message(FuncodeEnum.AUTH_USER,(byte)0 , null, LastLoginRecord.INSTANCE().getLastToken().getBytes().length, LastLoginRecord.INSTANCE().getLastToken().getBytes()));
-//	        	   }
+           //判断上次是否登陆
+           if(!StringUtil.isEmpty(LastLoginRecord.INSTANCE().getLastToken())){
+               //向broker发送认证凭证
+               System.out.println("发送登陆凭证");
+               future.channel().writeAndFlush(new Message(FuncodeEnum.AUTH_USER,(byte)0 , null, LastLoginRecord.INSTANCE().getLastToken().getBytes().length, LastLoginRecord.INSTANCE().getLastToken().getBytes()));
+           }
             //若重连成功恢复重连间隔
             SubRecorder.recover();
             dalayTime=1;
