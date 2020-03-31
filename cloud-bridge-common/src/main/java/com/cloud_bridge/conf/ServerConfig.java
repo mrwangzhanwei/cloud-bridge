@@ -9,22 +9,66 @@ import java.util.Map;
  */
 public class ServerConfig {
 
+    /**
+     * 主机
+     */
     private String host;
 
+    /**
+     * 端口号
+     */
     private String port;
 
+    /**
+     * 服务名
+     */
     private String serverName;
 
+    /**
+     * 重试次数
+     */
     private Integer retryCount;
 
+    /**
+     * 连接超时时间
+     */
     private Integer connectTimeout;
 
+    /**
+     * ping 超时时间
+     */
     private Integer pingTimeout;
 
+    /**
+     * 是否开启集群
+     */
+    private Boolean enableCluster;
+
+    /**
+     * 集群主机
+     */
+    private String servers;
+
+    /**
+     * 账号密码
+     */
     private Map<String,String> verifiedAccount;
 
+    public Boolean getEnableCluster() {
+        return enableCluster;
+    }
 
+    public void setEnableCluster(Boolean enableCluster) {
+        this.enableCluster = enableCluster;
+    }
 
+    public String getServers() {
+        return servers;
+    }
+
+    public void setServers(String servers) {
+        this.servers = servers;
+    }
 
     public ServerConfig(String host, String port) {
         this.host = host;
