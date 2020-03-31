@@ -35,11 +35,11 @@ public class TCPServer implements Server{
 //    private final Logger log= Logger.getLogger(TCPServer.class);
 
     public void start() {
-        log.info("");
+        log.info("服务端启动");
         ServerBootstrap bootstrap = new ServerBootstrap();
         bootstrap.group(workerGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
-                .childHandler(new ChanelInitializerHandler())
+                .childHandler(new ChanelInitializerHandler())//添加处理类
                 .option(ChannelOption.SO_BACKLOG, 128)
                 .childOption(ChannelOption.SO_KEEPALIVE, true);
         try {
@@ -53,9 +53,9 @@ public class TCPServer implements Server{
                 @Override
                 public void operationComplete(Future<? super Void> future) throws Exception {
                     if(future.isSuccess()||future.isDone()){
-                        log.info("【broker已启动】ip->"+config.getConfig().getHost()+" port->"+config.getConfig().getPort());
+                        log.info("【server已启动】ip->"+config.getConfig().getHost()+" port->"+config.getConfig().getPort());
                     }else{
-                        log.info("【broker】启动失败");
+                        log.info("【server】启动失败");
                     }
                 }
             });
@@ -67,7 +67,6 @@ public class TCPServer implements Server{
             }
             channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }finally {
             stop();

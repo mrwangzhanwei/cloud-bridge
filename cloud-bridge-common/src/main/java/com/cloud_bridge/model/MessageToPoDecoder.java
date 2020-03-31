@@ -1,9 +1,6 @@
-package com.cloud_bridge.handler;
+package com.cloud_bridge.model;
 
 import com.cloud_bridge.exception.DataHeaderException;
-import com.cloud_bridge.model.FuncodeEnum;
-import com.cloud_bridge.model.Message;
-import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ReplayingDecoder;

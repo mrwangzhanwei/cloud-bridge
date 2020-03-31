@@ -1,6 +1,5 @@
-package com.cloud_bridge.handler;
+package com.cloud_bridge.model;
 
-import com.cloud_bridge.model.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;

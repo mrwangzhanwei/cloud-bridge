@@ -36,9 +36,9 @@ public class Main {
     public static void start(){
         Main main = new Main();
         int prot = 5656;
+        main.run(prot);
 //        if (args.length>0 && args[0].matches("\\d{4}"))
 //            prot = Integer.parseInt(args[0]);
-        main.run(prot);
     }
 
     /**

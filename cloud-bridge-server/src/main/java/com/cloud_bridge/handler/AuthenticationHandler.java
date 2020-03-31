@@ -6,6 +6,7 @@ import com.cloud_bridge.conf.ConfigFactory;
 import com.cloud_bridge.conf.PropertyConfigFactory;
 import com.cloud_bridge.conf.ServerConfig;
 import com.cloud_bridge.model.FuncodeEnum;
+import com.cloud_bridge.model.LastLoginRecord;
 import com.cloud_bridge.model.Message;
 import com.cloud_bridge.utils.MD5Util;
 import io.netty.channel.ChannelFuture;
@@ -14,6 +15,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import jodd.util.StringUtil;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 授权
@@ -21,6 +23,7 @@ import jodd.util.StringUtil;
  * @email wangzhanwei@lumlord.com
  * @date 2020/3/24  19:54
  */
+@Slf4j
 public class AuthenticationHandler extends SimpleChannelInboundHandler<Message> {
     PropertyConfigFactory configFac=new PropertyConfigFactory();
 
@@ -32,7 +35,7 @@ public class AuthenticationHandler extends SimpleChannelInboundHandler<Message> 
         //判断是否第一次登陆
         if(res.startsWith("{")){
             JSONObject jsonObject = JSON.parseObject(res);
-            System.out.println("收到消息"+jsonObject.toString());
+            log.info("认证处理收到消息"+jsonObject.toString());
             if(null!=jsonObject){
                 String username = jsonObject.getString("username");
                 String password=jsonObject.getString("password");
@@ -45,7 +48,6 @@ public class AuthenticationHandler extends SimpleChannelInboundHandler<Message> 
                     channelFuture.addListener(new GenericFutureListener<Future<? super Void>>() {
                         @Override
                         public void operationComplete(Future<? super Void> future) throws Exception {
-                            // TODO Auto-generated method stub
                             if(future.isSuccess()){
                                 ctx.close();
                             }
@@ -65,13 +67,13 @@ public class AuthenticationHandler extends SimpleChannelInboundHandler<Message> 
         }else if(!res.equals("$FF$")){
             System.out.println("上一次登陆:"+res);
             //如果上次已登陆
-//            if(LastLoginRecord.INSTANCE().isLogin(res)){
-//                //认证成功建立管道信息
-//                ctx.pipeline().addLast( "message-process", new MessageProcessHandler());
-//            }else{
-//                //认证失败断开连接
-//                ctx.close();
-//            }
+            if(LastLoginRecord.INSTANCE().isLogin(res)){
+                //认证成功建立管道信息
+                ctx.pipeline().addLast( "message-process", new MessageProcessHandler());
+            }else{
+                //认证失败断开连接
+                ctx.close();
+            }
         }
 
         ctx.pipeline().remove(this);
