@@ -4,7 +4,6 @@ import com.cloud_bridge.conf.PropertyConfigFactory;
 import com.cloud_bridge.conf.ServerConfig;
 import com.cloud_bridge.handler.ChanelInitializerHandler;
 import com.cloud_bridge.server.Server;
-import com.cloud_bridge.zookeeper.ZkRegister;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -56,12 +55,12 @@ public class TCPServer implements Server{
                     }
                 }
             });
-            //判断是否开启集群
-            if(config.getConfig().getEnableCluster()){
-                //若开启集群模式，则启动注册zookeeper
-                ServerConfig serverConfig = config.getConfig();
-                ZkRegister.getInstance().register(serverConfig.getZkRootPath()+"/broker_",serverConfig.getHost()+":"+serverConfig.getPort());
-            }
+//            //判断是否开启集群
+//            if(config.getConfig().getEnableCluster()){
+//                //若开启集群模式，则启动注册zookeeper
+//                ServerConfig serverConfig = config.getConfig();
+//                ZkRegister.getInstance().register(serverConfig.getZkRootPath()+"/broker_",serverConfig.getHost()+":"+serverConfig.getPort());
+//            }
             channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -80,7 +79,7 @@ public class TCPServer implements Server{
         }
 
         //关闭zk客户端连接
-        ZkRegister.getInstance().close();
+//        ZkRegister.getInstance().close();
 
         log.info("【broker】关闭成功");
     }
