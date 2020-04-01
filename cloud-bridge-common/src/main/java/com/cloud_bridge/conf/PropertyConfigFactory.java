@@ -32,6 +32,7 @@ public class PropertyConfigFactory implements ConfigFactory{
             serverConfig.setHost(config.get("server.host"));
             serverConfig.setPort(config.get("server.port"));
             serverConfig.setRetryCount(Integer.parseInt(config.get("server.retryCount")));
+            serverConfig.setServers(config.get("cluster.servers"));
             // 设置连接密码
             HashMap<String, String> hashMap = new HashMap<>();
             hashMap.put("wzw", "666");

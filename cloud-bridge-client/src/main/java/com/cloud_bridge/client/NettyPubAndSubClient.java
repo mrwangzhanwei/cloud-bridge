@@ -25,7 +25,7 @@ public class NettyPubAndSubClient implements PubAndSubClient{
     public  NettyPubAndSubClient connect(String host,String port){
         TCPClient.INSTANCE.setConfig(new ServerConfig(host,port)).start();
         while(null==ChannelHolder.getChannel()){
-            try {
+            try {//等待异步启动之后返回
                 Thread.sleep(10);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
