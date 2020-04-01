@@ -25,6 +25,9 @@ public class TopicManagerHandler extends SimpleChannelInboundHandler<Message> {
                 topicManager.subscribe(msg.getTopic(),ctx.channel());
                 ctx.channel().writeAndFlush(new Message(FuncodeEnum.NOTICE_SUBSCRIBE_OK, (byte)1, msg.getTopic(),"SUBOK".getBytes().length , "SUBOK".getBytes()));
                 log.info("【主题订阅】"+ctx.channel().remoteAddress().toString()+" topic-》"+new String(msg.getTopic(),"utf-8"));
+                byte[] bytes = "mm".getBytes();
+                // 心跳的时候发个数据试试
+                topicManager.publish(bytes,"我订阅的主题".getBytes());
                 break;
             case TOPIC_UNSUBSCRIBE:
                 topicManager.remove(msg.getTopic(), ctx.channel());
