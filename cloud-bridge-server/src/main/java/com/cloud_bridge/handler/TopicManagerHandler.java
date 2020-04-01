@@ -3,6 +3,7 @@ package com.cloud_bridge.handler;
 import com.cloud_bridge.castable.TopicManager;
 import com.cloud_bridge.model.FuncodeEnum;
 import com.cloud_bridge.model.Message;
+import com.cloud_bridge.utils.MD5Util;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -25,9 +26,12 @@ public class TopicManagerHandler extends SimpleChannelInboundHandler<Message> {
                 topicManager.subscribe(msg.getTopic(),ctx.channel());
                 ctx.channel().writeAndFlush(new Message(FuncodeEnum.NOTICE_SUBSCRIBE_OK, (byte)1, msg.getTopic(),"SUBOK".getBytes().length , "SUBOK".getBytes()));
                 log.info("【主题订阅】"+ctx.channel().remoteAddress().toString()+" topic-》"+new String(msg.getTopic(),"utf-8"));
-                byte[] bytes = "mm".getBytes();
+
+                // 测试的主题
+                byte[] bytes = MD5Util.getPwd("mm").substring(0, 12).getBytes();
                 // 心跳的时候发个数据试试
-                topicManager.publish(bytes,"我订阅的主题".getBytes());
+                topicManager.publish(bytes,"这个是我订阅的主题哈哈".getBytes());
+
                 break;
             case TOPIC_UNSUBSCRIBE:
                 topicManager.remove(msg.getTopic(), ctx.channel());
