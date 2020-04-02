@@ -26,6 +26,10 @@ public class ClientChannelHolder {
         MAP.put(key, client);
     }
 
+    public static Map<String, Channel> getMAP() {
+        return MAP;
+    }
+
     /**
      *  登录存储 LastLoginRecords
      */
