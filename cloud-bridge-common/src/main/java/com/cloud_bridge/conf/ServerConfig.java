@@ -40,6 +40,11 @@ public class ServerConfig {
     private Integer pingTimeout;
 
     /**
+     * HttpProt http端口号
+     */
+    private Integer httpProt;
+
+    /**
      * 是否开启集群
      */
     private Boolean enableCluster;
@@ -48,6 +53,14 @@ public class ServerConfig {
      * 集群主机
      */
     private String servers;
+
+    public Integer getHttpProt() {
+        return httpProt;
+    }
+
+    public void setHttpProt(Integer httpProt) {
+        this.httpProt = httpProt;
+    }
 
     /**
      * 账号密码

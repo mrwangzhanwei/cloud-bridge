@@ -16,6 +16,7 @@
     <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>${log.pattern}</pattern>
+            <!--<charset class="java.nio.charset.Charset">UTF-8</charset>-->
         </encoder>
     </appender>
 

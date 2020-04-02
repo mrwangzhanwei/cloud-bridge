@@ -1,6 +1,7 @@
 package com.cloud_bridge;
 
 import com.cloud_bridge.handler.BusinessHandler;
+import com.cloud_bridge.server.impl.HttpServer;
 import com.cloud_bridge.server.impl.TCPServer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
@@ -31,20 +32,24 @@ public class Main {
 
 
     public static void main(String[] args) {
-            run();
+        Main main = new Main();
+        main.run();
     }
 
     /**
      * 创建线程池
      */
-    private final ExecutorService executorService= Executors.newFixedThreadPool(1);
+    private final ExecutorService executorService= Executors.newFixedThreadPool(2);
     /**
      * 使用线程池启动
      */
-    private static void run(){
-        Main main = new Main();
-        main.executorService.submit(()->{
+    private void run(){
+
+        executorService.submit(()->{
             TCPServer.INSTANCE.start();
+        });
+        executorService.submit(()->{
+            HttpServer.INSTANCE.start();
         });
     }
 

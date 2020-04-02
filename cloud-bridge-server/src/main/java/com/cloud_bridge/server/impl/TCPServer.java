@@ -81,6 +81,6 @@ public class TCPServer implements Server{
         //关闭zk客户端连接
 //        ZkRegister.getInstance().close();
 
-        log.info("【broker】关闭成功");
+        log.info("【TCP-server】关闭成功");
     }
 }

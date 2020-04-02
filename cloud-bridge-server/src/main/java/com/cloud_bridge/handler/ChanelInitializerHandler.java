@@ -6,7 +6,10 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleStateHandler;
+import io.netty.util.internal.logging.InternalLogLevel;
 
 /**
  * @author 王战伟
@@ -27,6 +30,7 @@ public class ChanelInitializerHandler extends ChannelInitializer{
         //添加协议处理器
 //        pipeline.addLast( "message-process", new MessageProcessHandler());
         pipeline.addLast(new MessageEncoder());
+
 
 
 
