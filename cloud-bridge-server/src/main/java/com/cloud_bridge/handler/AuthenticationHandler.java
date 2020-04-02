@@ -7,6 +7,7 @@ import com.cloud_bridge.conf.PropertyConfigFactory;
 import com.cloud_bridge.conf.ServerConfig;
 import com.cloud_bridge.model.FuncodeEnum;
 import com.cloud_bridge.model.LastLoginRecord;
+import com.cloud_bridge.model.LastLoginRecords;
 import com.cloud_bridge.model.Message;
 import com.cloud_bridge.utils.MD5Util;
 import io.netty.channel.ChannelFuture;
@@ -57,7 +58,11 @@ public class AuthenticationHandler extends SimpleChannelInboundHandler<Message> 
                     //认证成功之后，将账号和密码拼接进行MD5加密生成token，返回给客户端
                     String token= MD5Util.getPwd(username+password).substring(0, 16);
                     //记录登陆表
-                    LastLoginRecord.INSTANCE().register(username, password);
+                    LastLoginRecords lastLoginRecords = new LastLoginRecords();
+                    lastLoginRecords.register(username, password);
+
+                    ClientChannelHolder.setLastLoginRecords(config.getHost()+":"+config.getPort(),lastLoginRecords);
+//                    LastLoginRecord.INSTANCE().register(username, password);
                     ChannelFuture channelFuture = ctx.channel().writeAndFlush(new Message(FuncodeEnum.NOTICE_AUTH_OK, (byte)0,null , token.getBytes().length, token.getBytes()));
                     //认证成功建立管道信息
                     ctx.pipeline().addLast( "message-process", new MessageProcessHandler());

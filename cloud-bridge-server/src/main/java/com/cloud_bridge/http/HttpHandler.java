@@ -26,7 +26,6 @@ public class HttpHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest msg) throws Exception {
-        // TODO Auto-generated method stub
         try {
             ByteBuf content = msg.content();
             byte[] bts = new byte[content.readableBytes()];

@@ -10,10 +10,13 @@ import com.cloud_bridge.model.Message;
 public interface PubAndSubClient {
     //客户端认证
     void auth(String username,String password,AutuListener autuListener);
+    void auth(String key,String username,String password,AutuListener autuListener);
     //客户端订阅消息
     void subscribe(String topic,SubscribListener subscribListener);
+    void subscribe(String key,String topic,SubscribListener subscribListener);
     //客户端取消订阅
     void unsubscribe(String topic);
+    void unsubscribe(String key,String topic);
     //客户端发布消息
     void publish(String topic,String str);
     //客户端广播

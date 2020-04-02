@@ -1,6 +1,7 @@
 package com.cloud_bridge.halder;
 
 import com.cloud_bridge.event.EventBus;
+import com.cloud_bridge.event.MyEventBus;
 import com.cloud_bridge.model.FuncodeEnum;
 import com.cloud_bridge.model.Message;
 import io.netty.channel.ChannelHandlerContext;
@@ -17,7 +18,12 @@ public class MessageProcessHandler extends SimpleChannelInboundHandler<Message> 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Message msg) throws Exception {
         FuncodeEnum funCode = msg.getFunCode();
-        EventBus.handler.sendMsg(msg, funCode);
+        String key = ctx.channel().remoteAddress().toString().substring(1);
+        HandlerImpl handler = new HandlerImpl(key);
+        handler.sendMsg(msg, funCode);
+//        ChannelHolder.getMyEventBusMap(key).
+//        EventBus.handler.sendMsg(msg, funCode);
+
     }
 
     @Override

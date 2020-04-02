@@ -32,7 +32,7 @@ public class MessageToPoDecoder extends ReplayingDecoder<Void> {
      */
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf byteBuf, List<Object> list) throws Exception {
-        log.info("服务器收到数据");
+//        log.info("服务器收到数据");
         // 读取固定头部信息
         byte b = byteBuf.readByte();
         if (!verifyHead(b)){

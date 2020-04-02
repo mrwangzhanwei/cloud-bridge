@@ -11,27 +11,31 @@ import java.util.Set;
 /**
  * @author 王战伟
  * @email wangzhanwei@lumlord.com
- * @date 2020/3/31  9:55
+ * @date 2020/4/2  19:23
  */
-public class SubRecorder {
+public class SubRecorders {
+//    private String key;
+//
+//    public SubRecorders(String key){
+//        this.key = key;
+//    }
 
-    private static Set<String> topicRecorder=new HashSet<>();
+    private  Set<String> topicRecorder=new HashSet<>();
 
 
-    public static void record(String topic){
+    public  void record(String topic){
         topicRecorder.add(topic);
     }
 
-    public static void remove(String topic){
+    public  void remove(String topic){
         topicRecorder.remove(topic);
     }
 
-    public static void recover(){
+    public  void recover(){
         if(topicRecorder.size()>0){
             topicRecorder.forEach((topic)->{
                 ChannelHolder.getChannel().writeAndFlush(new Message(FuncodeEnum.TOPIC_SUBSCRIBE, (byte)1, topic.getBytes(),"subscribe".getBytes().length,"subscribe".getBytes()));
             });
         }
     }
-
 }

@@ -60,6 +60,11 @@ public class NettyPubAndSubClient implements PubAndSubClient{
     }
 
     @Override
+    public void auth(String key, String username, String password, AutuListener autuListener) {
+
+    }
+
+    @Override
     public void subscribe(String topic, SubscribListener subscribListener) {
         EventBus.setSubscribListener(topic,subscribListener);
         ChannelHolder.getChannel().writeAndFlush(new Message(FuncodeEnum.TOPIC_SUBSCRIBE, (byte)1, ecodeTopic(topic),"subscribe".getBytes().length,"subscribe".getBytes()));
@@ -67,9 +72,19 @@ public class NettyPubAndSubClient implements PubAndSubClient{
     }
 
     @Override
+    public void subscribe(String key, String topic, SubscribListener subscribListener) {
+
+    }
+
+    @Override
     public void unsubscribe(String topic) {
         SubRecorder.remove(MD5Util.getPwd(topic).substring(0, 12));
         ChannelHolder.getChannel().writeAndFlush(new Message(FuncodeEnum.TOPIC_UNSUBSCRIBE, (byte)1, ecodeTopic(topic),"unsubscribe".getBytes().length,"unsubscribe".getBytes()));
+    }
+
+    @Override
+    public void unsubscribe(String key, String topic) {
+
     }
 
     @Override
