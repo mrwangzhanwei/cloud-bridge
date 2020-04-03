@@ -1,7 +1,7 @@
 package com.cloud_bridge.castable;
 
 import com.cloud_bridge.handler.MemoryTopicHoder;
-import com.cloud_bridge.handler.TopicHolder;
+import com.cloud_bridge.interfaces.holder.TopicHolder;
 import com.cloud_bridge.model.FuncodeEnum;
 import com.cloud_bridge.model.Message;
 import io.netty.channel.Channel;

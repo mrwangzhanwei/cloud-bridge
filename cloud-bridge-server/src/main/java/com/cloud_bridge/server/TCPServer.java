@@ -1,9 +1,8 @@
-package com.cloud_bridge.server.impl;
+package com.cloud_bridge.server;
 
 import com.cloud_bridge.conf.PropertyConfigFactory;
-import com.cloud_bridge.conf.ServerConfig;
 import com.cloud_bridge.handler.ChanelInitializerHandler;
-import com.cloud_bridge.server.Server;
+import com.cloud_bridge.interfaces.server.Server;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -22,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2020/3/24  19:16
  */
 @Slf4j
-public class TCPServer implements Server{
+public class TCPServer implements Server {
     EventLoopGroup bossGroup = new NioEventLoopGroup();
     EventLoopGroup workerGroup = new NioEventLoopGroup();
 
@@ -77,10 +76,6 @@ public class TCPServer implements Server{
         if(bossGroup!=null){
             bossGroup.shutdownGracefully();
         }
-
-        //关闭zk客户端连接
-//        ZkRegister.getInstance().close();
-
         log.info("【TCP-server】关闭成功");
     }
 }

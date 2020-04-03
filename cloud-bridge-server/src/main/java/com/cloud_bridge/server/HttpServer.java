@@ -1,8 +1,8 @@
-package com.cloud_bridge.server.impl;
+package com.cloud_bridge.server;
 
 import com.cloud_bridge.conf.PropertyConfigFactory;
 import com.cloud_bridge.http.HttpHandler;
-import com.cloud_bridge.server.Server;
+import com.cloud_bridge.interfaces.server.Server;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
