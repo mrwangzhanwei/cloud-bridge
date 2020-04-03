@@ -9,6 +9,11 @@ import java.io.UnsupportedEncodingException;
  */
 public class StringTools {
 
+    /**
+     *
+     * @param data
+     * @return
+     */
     public static String toStrUTF(byte[] data){
         if(null!=data){
             try {
@@ -20,4 +25,12 @@ public class StringTools {
         return null;
     }
 
+    /**
+     * String topic 转 byte
+     * @param topic
+     * @return
+     */
+    public static byte[] ecodeTopic(String topic){
+        return MD5Util.getPwd(topic).substring(0, 12).getBytes();
+    }
 }
