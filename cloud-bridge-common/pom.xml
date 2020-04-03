@@ -5,7 +5,7 @@
     <parent>
         <artifactId>cloud-bridge</artifactId>
         <groupId>com.cloud_bridge</groupId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -19,10 +19,5 @@
             <artifactId>jodd-all</artifactId>
             <version>5.0.6</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.cloud_bridge</groupId>-->
-            <!--<artifactId>cloud-bridge-client</artifactId>-->
-            <!--<version>1.0.0</version>-->
-        <!--</dependency>-->
     </dependencies>
 </project>
