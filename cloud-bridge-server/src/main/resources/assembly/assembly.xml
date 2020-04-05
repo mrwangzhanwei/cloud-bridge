@@ -18,11 +18,11 @@
             <includes>
                 <include>*.jar</include>
             </includes>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory>/cloud-bridge</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>target/lib</directory>
-            <outputDirectory>/lib</outputDirectory>
+            <outputDirectory>/cloud-bridge/lib</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>target/config</directory>
@@ -31,15 +31,15 @@
 
         <!-- 从源目录拷贝文件去压缩 -->
         <fileSet>
-            <directory>src/main/run</directory>
+            <directory>src/main/resources/run</directory>
             <includes>
                 <include>*.sh</include>
                 <include>*.cmd</include>
             </includes>
-            <outputDirectory>/</outputDirectory>
+            <outputDirectory>/bin</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>src/main</directory>
+            <directory>src/main/resources</directory>
             <includes>
                 <include>ReadMe.txt</include>
             </includes>

@@ -24,16 +24,11 @@
             <artifactId>cloud-bridge-client</artifactId>
             <version>1.0.1</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>commons-configuration</groupId>-->
-            <!--<artifactId>commons-configuration</artifactId>-->
-            <!--<version>1.10</version>-->
-        <!--</dependency>-->
     </dependencies>
 
     <build>
         <!-- 输出的包名 -->
-        <finalName>cloud-bridge</finalName>
+        <finalName>cloud-bridge-server</finalName>
         <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
             <!-- 控制资源文件的拷贝(默认复制到classes目录，最后打进jar包) -->
@@ -132,7 +127,7 @@
                 <version>2.2.1</version>
                 <configuration>
                     <descriptors>
-                        <descriptor>src/main/assembly/assembly.xml</descriptor>
+                        <descriptor>src/main/resources/assembly/assembly.xml</descriptor>
                     </descriptors>
                 </configuration>
                 <executions>
