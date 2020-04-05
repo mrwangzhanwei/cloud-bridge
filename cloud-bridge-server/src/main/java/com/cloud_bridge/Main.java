@@ -1,5 +1,6 @@
 package com.cloud_bridge;
 
+import ch.qos.logback.core.joran.spi.InterpretationContext;
 import com.cloud_bridge.handler.BusinessHandler;
 import com.cloud_bridge.http.HttpHandler;
 import com.cloud_bridge.server.HttpServer;
@@ -37,9 +38,10 @@ public class Main {
 
 
     public static void main(String[] args) {
+        String property = System.getProperty("user.dir");
+        System.out.println("user.dir : "+property);
         Main main = new Main();
         main.run();
-//        start();
     }
 
     /**
