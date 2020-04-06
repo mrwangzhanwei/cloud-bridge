@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <!--file 这两个不用了 -->
+    <!--<property file="${user.dir}/../config/config.properties"/>-->
+    <!--<property file="${user.dir}/cloud-bridge-server/target/config/config.properties"/>-->
+
+    <property resource="config.properties"/>
+
     <!-- configuration标签 scan属性代表logback框架会定时检测改配置文件是否有发生改动，如果有则更新为最新配置-->
     <!-- 日志级别：trace < debug < info < warn < error-->
     <!-- 定义参数常量 -->
-    <property name="log.level" value="debug"/>　
+    <property name="log.level" value="${level}"/>　
     <!-- 一个日志文件存在的最大时间：30天-->　　
-    <property name="log.maxHistory" value="30"/>　
+    <property name="log.maxHistory" value="${maxHistory}"/>　
     <!-- 日志文件存放的目录-->　
-    <property name="log.filePath" value="${catalina.base}/logs/webapps"/>
+    <property name="log.filePath" value="${filePath}/logs/webapps"/>
     <!--日志内容格式：年-月-日 时：分：秒.毫秒 [线程名称] 日志级别 -->
-    <property name="log.pattern"
-              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"/>
+    <property name="log.pattern" value="${pattern}"/>
 
     <!-- 控制台设置 -->
     <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">

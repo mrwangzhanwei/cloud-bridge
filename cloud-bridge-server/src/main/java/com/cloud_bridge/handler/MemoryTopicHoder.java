@@ -1,5 +1,6 @@
 package com.cloud_bridge.handler;
 
+import com.cloud_bridge.interfaces.holder.TopicHolder;
 import com.cloud_bridge.utils.StringTools;
 import io.netty.channel.Channel;
 
@@ -13,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @email wangzhanwei@lumlord.com
  * @date 2020/3/25  9:27
  */
-public class MemoryTopicHoder implements TopicHolder{
+public class MemoryTopicHoder implements TopicHolder {
     private static volatile MemoryTopicHoder memoryTopicHoder=null;
     //存储一个主题对应的注册channel
     private Map<String,Set<Channel>> topicContainner=null;
