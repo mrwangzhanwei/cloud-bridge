@@ -1,7 +1,9 @@
 <assembly>
     <id>bin</id>
     <formats>
-        <format>zip</format>
+        <!--<format>zip</format>-->
+        <!--Linux下的包-->
+        <format>tar.gz</format>
     </formats>
     <!-- 使用assembly拷贝依赖包 -->
     <!--<dependencySets>-->
