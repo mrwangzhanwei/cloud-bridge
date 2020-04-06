@@ -1,0 +1,1 @@
+java -Xbootclasspath/a:../config/ -jar ..\cloud-bridge\cloud-bridge-server.jar aa

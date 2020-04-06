@@ -8,6 +8,7 @@ import com.cloud_bridge.halder.ChannelHolder;
 import com.cloud_bridge.model.FuncodeEnum;
 import com.cloud_bridge.model.Message;
 import com.cloud_bridge.utils.MD5Util;
+import com.cloud_bridge.utils.StringTools;
 import io.netty.channel.Channel;
 
 import static com.cloud_bridge.event.EventBus.setAutuListener;
@@ -24,20 +25,7 @@ public class NettyPubAndSubClients implements PubAndSubClient {
     public NettyPubAndSubClients(Channel channel) {
             this.channel = channel;
     }
-   /* public  NettyPubAndSubClients connect(String host,String port){
-        ClientFactory factory = new ClientFactory();
-        TCPClients client = factory.getClient();
-        client.setConfig(new ServerConfig(host,port)).start();
-        while(null==channel ){
-            try {//等待异步启动之后返回
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        return nettyPubAndSubClient;
-    }*/
+
     //是否接收广播消息
     public NettyPubAndSubClients acceptBraodCast(SubscribListener subscribListener){
         subscribe(FuncodeEnum.MESSAGE_BROAD.name().concat("$"), subscribListener);
@@ -74,7 +62,7 @@ public class NettyPubAndSubClients implements PubAndSubClient {
     public void subscribe(String key,String topic, SubscribListener subscribListener) {
         MyEventBus myEventBus =ChannelHolder.getMyEventBusMap(key);
         myEventBus.setSubscribListener(topic,subscribListener);
-        channel.writeAndFlush(new Message(FuncodeEnum.TOPIC_SUBSCRIBE, (byte)1, ecodeTopic(topic),"subscribe".getBytes().length,"subscribe".getBytes()));
+        channel.writeAndFlush(new Message(FuncodeEnum.TOPIC_SUBSCRIBE, (byte)1, StringTools.ecodeTopic(topic),"subscribe".getBytes().length,"subscribe".getBytes()));
         SubRecorders recorders = ChannelHolder.getSubRecordersMap(key);
         recorders.record(MD5Util.getPwd(topic).substring(0, 12));
     }
@@ -88,13 +76,13 @@ public class NettyPubAndSubClients implements PubAndSubClient {
     public void unsubscribe(String key,String topic) {
         SubRecorders subRecorders = ChannelHolder.getSubRecordersMap(key);
         subRecorders.remove(MD5Util.getPwd(topic).substring(0, 12));
-        channel.writeAndFlush(new Message(FuncodeEnum.TOPIC_UNSUBSCRIBE, (byte)1, ecodeTopic(topic),"unsubscribe".getBytes().length,"unsubscribe".getBytes()));
+        channel.writeAndFlush(new Message(FuncodeEnum.TOPIC_UNSUBSCRIBE, (byte)1, StringTools.ecodeTopic(topic),"unsubscribe".getBytes().length,"unsubscribe".getBytes()));
     }
 
     @Override
     public void publish(String topic,String str) {
         try {
-            channel.writeAndFlush(new Message(FuncodeEnum.MESSAGE_SEND, (byte)1, ecodeTopic(topic),str.getBytes("utf-8").length,str.getBytes("utf-8")));
+            channel.writeAndFlush(new Message(FuncodeEnum.MESSAGE_SEND, (byte)1, StringTools.ecodeTopic(topic),str.getBytes("utf-8").length,str.getBytes("utf-8")));
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -112,10 +100,6 @@ public class NettyPubAndSubClients implements PubAndSubClient {
 
     public boolean checkConnect(){
         return null==channel?false:true;
-    }
-
-    private byte[] ecodeTopic(String topic){
-        return MD5Util.getPwd(topic).substring(0, 12).getBytes();
     }
 
 
