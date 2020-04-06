@@ -1,6 +1,7 @@
 package com.cloud_bridge;
 
 import ch.qos.logback.core.joran.spi.InterpretationContext;
+import com.cloud_bridge.cluster.ConnectServers;
 import com.cloud_bridge.handler.BusinessHandler;
 import com.cloud_bridge.http.HttpHandler;
 import com.cloud_bridge.server.HttpServer;
@@ -23,6 +24,7 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.handler.timeout.IdleStateHandler;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -34,12 +36,25 @@ import java.util.concurrent.TimeUnit;
  * @email wangzhanwei@lumlord.com
  * @date 2020/3/24  14:40
  */
+@Slf4j
 public class Main {
 
 
     public static void main(String[] args) {
-        Main main = new Main();
-        main.run();
+        if (args.length > 0 && "client".equals(args[0])){
+            // 启动客户端
+            log.info("客户端启动");
+            ConnectServers servers = new ConnectServers();
+            servers.connect();
+            log.info("客户端启动完成");
+        }else {
+            // 启动服务端
+            log.info("服务端启动");
+            Main main = new Main();
+            main.run();
+            log.info("服务端启动完成");
+        }
+
     }
 
     /**

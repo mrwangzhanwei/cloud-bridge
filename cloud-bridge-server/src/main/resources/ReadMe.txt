@@ -1,1 +1,1 @@
-1.ide 工具运行时注意修改一下 logback property file 注意看 logback注释（maven-resources-plugin 打包之后 config.properties 位置会改变，所以加载不到 暂时还没有解决）
+1. 目前只有启动的脚本，后续增加停止脚本
