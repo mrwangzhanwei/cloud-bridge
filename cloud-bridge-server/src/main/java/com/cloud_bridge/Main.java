@@ -1,7 +1,6 @@
 package com.cloud_bridge;
 
 import ch.qos.logback.core.joran.spi.InterpretationContext;
-import com.cloud_bridge.cluster.ConnectServers;
 import com.cloud_bridge.handler.BusinessHandler;
 import com.cloud_bridge.http.HttpHandler;
 import com.cloud_bridge.server.HttpServer;
@@ -30,6 +29,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import static com.cloud_bridge.cluster.ConnectServers.connect;
+
 /**
  * 启动类
  * @author 王战伟
@@ -42,17 +43,9 @@ public class Main {
 
     public static void main(String[] args) {
         if (args.length > 0 && "client".equals(args[0])){
-            // 启动客户端
-            log.info("客户端启动");
-            ConnectServers servers = new ConnectServers();
-            servers.connect();
-            log.info("客户端启动完成");
+            connect();// 启动客户端
         }else {
-            // 启动服务端
-            log.info("服务端启动");
-            Main main = new Main();
-            main.run();
-            log.info("服务端启动完成");
+            run();// 启动服务端
         }
 
     }
@@ -60,11 +53,11 @@ public class Main {
     /**
      * 创建线程池
      */
-    private final ExecutorService executorService= Executors.newFixedThreadPool(2);
+    private static final ExecutorService executorService= Executors.newFixedThreadPool(2);
     /**
      * 使用线程池启动
      */
-    private void run(){
+    private static void run(){
 
         executorService.submit(()->{
             TCPServer.INSTANCE.start();

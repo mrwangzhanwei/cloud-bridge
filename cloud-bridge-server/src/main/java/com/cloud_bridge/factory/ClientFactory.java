@@ -8,7 +8,7 @@ import com.cloud_bridge.client.TCPClients;
  * @date 2020/4/2  15:05
  */
 public class ClientFactory {
-    public TCPClients getClient(){
+    public  TCPClients getClient(){
         return new TCPClients();
     }
 }

@@ -23,11 +23,11 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class ConnectServers {
 
-    PropertyConfigFactory configFac = new PropertyConfigFactory();
+    static PropertyConfigFactory configFac = new PropertyConfigFactory();
 
-    ClientFactory factory = new ClientFactory();
+    static ClientFactory factory = new ClientFactory();
 
-    public  void connect() {
+    public static void connect() {
         ServerConfig config = configFac.getConfig(ConfigFactory.filaPath);
         // 首先获取所有的服务主机和端口号
         ClusterConfig clusterConfig = new ClusterConfig(config);
@@ -68,7 +68,7 @@ public class ConnectServers {
             });
         });
     }
-    public void sendAllChannel(String msg){
+    public static void sendAllChannel(String msg){
         Map<String, Channel> map = ClientChannelHolder.getMAP();
         map.forEach((k,v)->{
             try {
